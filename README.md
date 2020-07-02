@@ -11,6 +11,8 @@ Instructions:
 - A treasure will appear
 - Go close to it to unlock
 
+> You can deploy the treasure box at the arrow by tapping on the screen.
+
 ## Perquisites
 ### To Run without unity
 - AR  Android [supported device] (https://developers.google.com/ar/discover/supported-devices)

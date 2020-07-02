@@ -31,6 +31,8 @@ public class TreasureHunt : MonoBehaviour
 
     private GameObject deployedChest;
 
+    public GameObject restartBtn;
+
     void Start()
     {
         instructions.text = "Let's go look for the treasure!";
@@ -73,7 +75,8 @@ public class TreasureHunt : MonoBehaviour
     private void openChest()
     {
         chestAnimation.SetBool("openChest", true);
-        instructions.text = "Woho! you unlocked a new level!";
+        instructions.text = "Confetti! you found the treasure and finished the Demo.";
+        restartBtn.SetActive(true);
         chestOpened = true;
     }
     private void showChest()

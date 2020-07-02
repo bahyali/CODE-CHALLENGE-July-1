@@ -19,6 +19,11 @@ public class FlowManager : MonoBehaviour
         LoadSceneRelative(-1);
     }
 
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     void LoadSceneRelative(int index)
     {
         try
