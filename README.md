@@ -1,9 +1,11 @@
 Maro's Adventures Prototype
 ==
 
-This is a prototype of an adventure kid can have at home.
+__Technologies__: Unity, C#, Augmented Reality
 
-This game should guide the kid to search for the treasure in the house, (it will calculate step count in the background) and when he reaches the desired step count a chest will be revealed, the kid then can collect what's inside.
+This is a prototype of an adventure kid can have at home as one of the activities.
+
+This mini game should guide the kid to search for the treasure in the house, (it will calculate step count in the background) and when he reaches the desired step count a chest will be revealed, the kid then can collect what's inside.
 
 Features:
 - Deploy virtual objects
