@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
@@ -22,8 +23,18 @@ public class TreasureHunt : MonoBehaviour
 
     private bool chestOpened = false;
 
-    private Camera arCamera;
+    public Camera arCamera;
 
+    private Animator chestAnimation;
+
+    public Text instructions;
+
+    private GameObject deployedChest;
+
+    void Start()
+    {
+        instructions.text = "Let's go look for the treasure!";
+    }
     private void Update()
     {
         steps = stepCounter.stepCount;
@@ -37,39 +48,43 @@ public class TreasureHunt : MonoBehaviour
             showChest();
         }
 
-        if (chestVisible && !chestOpened)
+        if (chestVisible && !chestOpened && positionIndicator.placementPoseIsValid)
         {
-            try{
-            // Close to chest
-            RaycastHit hit;
-            Ray closenessRay = arCamera.ScreenPointToRay(positionIndicator.getPlacementIndicator().transform.position);
-            debug.text = Vector3.Distance(arCamera.transform.position, chest.transform.position).ToString();
-
-            if (Physics.Raycast(closenessRay, out hit, closeness))
+            try
             {
-                debug.text = "OPEN TREASURE!";
-                chestOpened = true;
+                Ray ray = new Ray(arCamera.transform.position, arCamera.transform.rotation * Vector3.forward);
+                if (Physics.Raycast(ray, out RaycastHit hit, closeness))
+                {
+                    if (hit.collider.tag == "chest")
+                    {
+                        openChest();
+                    }
+                }
             }
-            } catch (Exception e){
+            catch (Exception e)
+            {
                 debug.text = e.ToString();
             }
-           
-        }
 
+        }
 
     }
 
+    private void openChest()
+    {
+        chestAnimation.SetBool("openChest", true);
+        instructions.text = "Woho! you unlocked a new level!";
+        chestOpened = true;
+    }
     private void showChest()
     {
         if (positionIndicator.placementPoseIsValid)
         {
             chestVisible = true;
-            debug.text = "SHOW TREASUREs!";
+            instructions.text = "Now go closer to the treasure!";
             Pose placementPose = positionIndicator.getPlacementPose();
-            Quaternion rotation = placementPose.rotation;
-            debug.text = rotation.ToString();
-            Instantiate(chest, placementPose.position, rotation);
+            deployedChest = Instantiate(chest, placementPose.position, chest.transform.rotation);
+            chestAnimation = deployedChest.GetComponent<Animator>();
         }
-        Debug.Log("Show Chest");
     }
 }
